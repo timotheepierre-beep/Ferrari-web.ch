@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferrari Collection</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: white;
+}
+
+/* ================= NAVBAR ================= */
+
+nav {
+    height: 70px;
+    background: #0d0d0d;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #e10600;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #e10600;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background:
+        radial-gradient(circle at center, #2b0000 0%, #090909 55%, #050505 100%);
+}
+
+.hero h1 {
+    font-size: clamp(50px, 8vw, 100px);
+    letter-spacing: 5px;
+}
+
+.hero h1 span {
+    color: #e10600;
+}
+
+.hero p {
+    margin: 20px auto;
+    max-width: 650px;
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 14px 30px;
+    border: none;
+    background: #e10600;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero button:hover {
+    background: #ff1a14;
+    transform: translateY(-2px);
+}
+
+/* ================= COLLECTION ================= */
+
+.collection {
+    padding: 80px 6%;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.title h2 {
+    font-size: 42px;
+}
+
+.title p {
+    color: #888;
+    margin-top: 10px;
+}
+
+/* recherche */
+
+.search {
+    max-width: 500px;
+    margin: 0 auto 40px;
+}
+
+.search input {
+    width: 100%;
+    padding: 15px 20px;
+    background: #121212;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search input:focus {
+    border-color: #e10600;
+}
+
+/* filtres */
+
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.filters button {
+    padding: 10px 18px;
+    border: 1px solid #333;
+    background: #111;
+    color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filters button:hover,
+.filters button.active {
+    background: #e10600;
+    border-color: #e10600;
+    color: white;
+}
+
+/* cartes */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.35s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #e10600;
+    box-shadow: 0 15px 40px rgba(225,0,0,0.12);
+}
+
+.car-image {
+    height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at center, #252525, #0b0b0b);
+    position: relative;
+    overflow: hidden;
+}
+
+/* voiture stylisée */
+
+.car-shape {
+    width: 210px;
+    height: 60px;
+    background: linear-gradient(#cfcfcf, #555);
+    border-radius: 65% 45% 20% 15%;
+    position: relative;
+    transform: perspective(500px) rotateX(5deg);
+    box-shadow: 0 18px 20px rgba(0,0,0,.6);
+}
+
+.car-shape::before {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 45px;
+    background: #111;
+    left: 55px;
+    top: -28px;
+    border-radius: 70% 70% 10% 10%;
+}
+
+.car-shape::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #080808;
+    border-radius: 50%;
+    left: 28px;
+    bottom: -15px;
+    box-shadow: 125px 0 #080808;
+    border: 5px solid #333;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-content h3 {
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.card-content p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.card-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.card-buttons button {
+    flex: 1;
+    padding: 11px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-red {
+    background: #e10600;
+    color: white;
+    border: none;
+}
+
+.btn-dark {
+    background: #181818;
+    color: white;
+    border: 1px solid #333;
+}
+
+/* ================= MODAL 360 ================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.viewer {
+    width: min(1000px, 95vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #101010;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.viewer h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.viewer-subtitle {
+    text-align: center;
+    color: #888;
+    margin-bottom: 25px;
+}
+
+/* zone 3D */
+
+.viewer-area {
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle, #292929, #090909 70%);
+    border-radius: 8px;
+    overflow: hidden;
+    perspective: 900px;
+}
+
+/* voiture 3D */
+
+.car-3d {
+    width: 350px;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform .15s linear;
+}
+
+.car-body {
+    position: absolute;
+    width: 350px;
+    height: 100px;
+    background: linear-gradient(#dcdcdc, #555);
+    border-radius: 65% 50% 20% 15%;
+    box-shadow:
+        inset -20px -10px 30px rgba(0,0,0,.5),
+        0 35px 35px rgba(0,0,0,.6);
+}
+
+.car-window {
+    position: absolute;
+    width: 145px;
+    height: 58px;
+    top: -40px;
+    left: 100px;
+    background: linear-gradient(135deg, #111, #39434a);
+    clip-path: polygon(15% 100%, 28% 0, 80% 0, 100% 100%);
+    border: 2px solid #555;
+}
+
+.car-line {
+    position: absolute;
+    width: 220px;
+    height: 4px;
+    background: #e10600;
+    left: 60px;
+    top: 48px;
+    border-radius: 5px;
+}
+
+.wheel {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #050505;
+    border: 8px solid #292929;
+    bottom: -28px;
+}
+
+.wheel.one {
+    left: 45px;
+}
+
+.wheel.two {
+    right: 45px;
+}
+
+/* portes */
+
+.door {
+    position: absolute;
+    width: 100px;
+    height: 65px;
+    background: rgba(90,90,90,.8);
+    border: 2px solid #333;
+    top: 8px;
+    transform-origin: left center;
+    transition: .7s;
+}
+
+.door.left {
+    left: 105px;
+}
+
+.door.right {
+    right: 105px;
+    transform-origin: right center;
+}
+
+.car-3d.doors-open .door.left {
+    transform: rotateY(-65deg) translateX(-20px);
+}
+
+.car-3d.doors-open .door.right {
+    transform: rotateY(65deg) translateX(20px);
+}
+
+/* boutons */
+
+.viewer-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.viewer-controls button {
+    padding: 12px 18px;
+    border: 1px solid #333;
+    background: #181818;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.viewer-controls button:hover {
+    border-color: #e10600;
+    background: #e10600;
+}
+
+/* ================= INTERIEUR ================= */
+
+.interior {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    background: #080808;
+    border: 1px solid #292929;
+    border-radius: 8px;
+}
+
+.interior.show {
+    display: block;
+}
+
+.interior h3 {
+    color: #e10600;
+    margin-bottom: 20px;
+}
+
+.cockpit {
+    height: 210px;
+    background: linear-gradient(160deg, #222, #080808);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.dashboard {
+    position: absolute;
+    width: 80%;
+    height: 55px;
+    background: #151515;
+    top: 35px;
+    left: 10%;
+    border-radius: 8px;
+    border-bottom: 3px solid #e10600;
+}
+
+.screen {
+    position: absolute;
+    width: 120px;
+    height: 35px;
+    background: #071b20;
+    border: 2px solid #555;
+    top: 10px;
+    left: calc(50% - 60px);
+}
+
+.steering {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border: 10px solid #111;
+    border-radius: 50%;
+    bottom: 30px;
+    left: 20%;
+}
+
+.steering::after {
+    content: "F";
+    position: absolute;
+    inset: 17px;
+    background: #e10600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.seat {
+    position: absolute;
+    width: 80px;
+    height: 105px;
+    background: #151515;
+    border-radius: 30px 30px 10px 10px;
+    bottom: 10px;
+}
+
+.seat.one {
+    left: 48%;
+}
+
+.seat.two {
+    right: 10%;
+}
+
+/* ================= DETAILS ================= */
+
+.details {
+    display: none;
+    margin-top: 25px;
+    background: #090909;
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.details.show {
+    display: block;
+}
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.spec {
+    background: #151515;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.spec span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.spec strong {
+    color: white;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    border-top: 1px solid #222;
+    padding: 40px 20px;
+    text-align: center;
+    color: #666;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px) {
+
+    nav {
+        padding: 0 20px;
+    }
+
+    nav a {
+        display: none;
+    }
+
+    .hero {
+        min-height: 430px;
+    }
+
+    .viewer {
+        padding: 20px;
+    }
+
+    .viewer-area {
+        height: 280px;
+    }
+
+    .car-3d {
+        transform: scale(.7);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<nav>
+    <div class="logo">
+        FERRARI<span>.</span>
+    </div>
+
+    <div>
+        <a href="#collection">Collection</a>
+        <a href="#histoire">Histoire</a>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+        <h1>FERRARI <span>COLLECTION</span></h1>
+
+        <p>
+            Explore une collection de Ferrari légendaires,
+            découvre leurs caractéristiques et ouvre chaque voiture
+            pour explorer son intérieur.
+        </p>
+
+        <button onclick="goCollection()">
+            EXPLORER LES FERRARI
+        </button>
+    </div>
+
+</section>
+
+
+<!-- COLLECTION -->
+
+<section class="collection" id="collection">
+
+    <div class="title">
+        <h2>Les Ferrari</h2>
+        <p>Choisis une Ferrari pour la découvrir.</p>
+    </div>
+
+    <div class="search">
+        <input
+            type="text"
+            id="search"
+            placeholder="Rechercher une Ferrari..."
+            oninput="renderCars()"
+        >
+    </div>
+
+    <div class="filters">
+        <button class="active" onclick="filterCars('Toutes', this)">Toutes</button>
+        <button onclick="filterCars('V12', this)">V12</button>
+        <button onclick="filterCars('V8', this)">V8</button>
+        <button onclick="filterCars('Hybride', this)">Hybride</button>
+        <button onclick="filterCars('Classique', this)">Classiques</button>
+        <button onclick="filterCars('Course', this)">Course</button>
+    </div>
+
+    <div class="grid" id="carGrid"></div>
+
+</section>
+
+
+<!-- HISTOIRE -->
+
+<section class="collection" id="histoire">
+
+    <div class="title">
+        <h2>L'histoire Ferrari</h2>
+
+        <p>
+            Depuis la création de Ferrari par Enzo Ferrari,
+            la marque italienne est devenue l'une des références
+            mondiales dans l'automobile sportive et la compétition.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- MODAL 360 -->
+
+<div class="modal" id="viewer">
+
+    <div class="viewer">
+
+        <button class="close" onclick="closeViewer()">×</button>
+
+        <h2 id="viewerTitle">Ferrari</h2>
+
+        <div class="viewer-subtitle">
+            Fais glisser la voiture pour la faire tourner
+        </div>
+
+        <div class="viewer-area" id="viewerArea">
+
+            <div class="car-3d" id="car3D">
+
+                <div class="car-body"></div>
+
+                <div class="car-window"></div>
+
+                <div class="car-line"></div>
+
+                <div class="door left"></div>
+                <div class="door right"></div>
+
+                <div class="wheel one"></div>
+                <div class="wheel two"></div>
+
+            </div>
+
+        </div>
+
+        <div class="viewer-controls">
+
+            <button onclick="toggleRotation()">
+                🔄 Rotation automatique
+            </button>
+
+            <button onclick="toggleDoors()">
+                🚪 Ouvrir / fermer les portes
+            </button>
+
+            <button onclick="toggleInterior()">
+                🪑 Intérieur
+            </button>
+
+            <button onclick="showDetails()">
+                📋 Détails
+            </button>
+
+        </div>
+
+
+        <!-- INTERIEUR -->
+
+        <div class="interior" id="interior">
+
+            <h3>🪑 Intérieur Ferrari</h3>
+
+            <div class="cockpit">
+
+                <div class="dashboard">
+                    <div class="screen"></div>
+                </div>
+
+                <div class="steering"></div>
+
+                <div class="seat one"></div>
+                <div class="seat two"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="details" id="details">
+
+            <h3 id="detailsTitle"></h3>
+
+            <p id="detailsDescription"></p>
+
+            <div class="specs">
+
+                <div class="spec">
+                    <span>Moteur</span>
+                    <strong id="specEngine"></strong>
+                </div>
+
+                <div class="spec">
+                    <span>Puissance</span>
+                    <strong id="specPower"></strong>
+                </div>
+
+                <div class="spec">
+                    <span>Transmission</span>
+                    <strong id="specDrive"></strong>
+                </div>
+
+                <div class="spec">
+                    <span>Type</span>
+                    <strong id="specType"></strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    Ferrari Collection — Projet personnel
+</footer>
+
+
+<script>
+
+/* ================= DONNEES ================= */
+
+const cars = [
+
+    {
+        name: "Ferrari 250 GTO",
+        type: "Classique",
+        engine: "V12 3.0 L",
+        power: "Environ 300 ch",
+        drive: "Propulsion",
+        description: "Une des Ferrari classiques les plus célèbres de l'histoire."
+    },
+
+    {
+        name: "Ferrari 288 GTO",
+        type: "V8",
+        engine: "V8 biturbo 2.9 L",
+        power: "400 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari mythique développée à l'origine pour la compétition."
+    },
+
+    {
+        name: "Ferrari F40",
+        type: "V8",
+        engine: "V8 biturbo 2.9 L",
+        power: "478 ch",
+        drive: "Propulsion",
+        description: "Une supercar radicale et légère devenue une véritable légende."
+    },
+
+    {
+        name: "Ferrari F50",
+        type: "V12",
+        engine: "V12 4.7 L",
+        power: "520 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari inspirée directement de la compétition automobile."
+    },
+
+    {
+        name: "Ferrari Enzo",
+        type: "V12",
+        engine: "V12 6.0 L",
+        power: "660 ch",
+        drive: "Propulsion",
+        description: "Une supercar portant le nom du fondateur de Ferrari."
+    },
+
+    {
+        name: "Ferrari LaFerrari",
+        type: "Hybride",
+        engine: "V12 6.3 L + électrique",
+        power: "963 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari hybride haute performance."
+    },
+
+    {
+        name: "Ferrari 458 Italia",
+        type: "V8",
+        engine: "V8 4.5 L",
+        power: "570 ch",
+        drive: "Propulsion",
+        description: "Une berlinette V8 atmosphérique emblématique."
+    },
+
+    {
+        name: "Ferrari 488 GTB",
+        type: "V8",
+        engine: "V8 biturbo 3.9 L",
+        power: "670 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari moderne équipée d'un V8 biturbo."
+    },
+
+    {
+        name: "Ferrari F8 Tributo",
+        type: "V8",
+        engine: "V8 biturbo 3.9 L",
+        power: "720 ch",
+        drive: "Propulsion",
+        description: "Une évolution majeure des berlinettes V8 Ferrari."
+    },
+
+    {
+        name: "Ferrari SF90 Stradale",
+        type: "Hybride",
+        engine: "V8 biturbo + électrique",
+        power: "1000 ch",
+        drive: "Transmission intégrale",
+        description: "Une Ferrari hybride rechargeable extrêmement performante."
+    },
+
+    {
+        name: "Ferrari 296 GTB",
+        type: "Hybride",
+        engine: "V6 biturbo 3.0 L + électrique",
+        power: "830 ch",
+        drive: "Propulsion",
+        description: "Une sportive hybride équipée d'un V6 très compact."
+    },
+
+    {
+        name: "Ferrari Daytona SP3",
+        type: "V12",
+        engine: "V12 6.5 L",
+        power: "840 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari de la série Icona au style spectaculaire."
+    },
+
+    {
+        name: "Ferrari Purosangue",
+        type: "V12",
+        engine: "V12 6.5 L",
+        power: "725 ch",
+        drive: "Transmission intégrale",
+        description: "Le modèle quatre portes quatre places de Ferrari."
+    },
+
+    {
+        name: "Ferrari Roma",
+        type: "V8",
+        engine: "V8 biturbo 3.9 L",
+        power: "620 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari élégante inspirée du style italien des années 1960."
+    },
+
+    {
+        name: "Ferrari 812 Superfast",
+        type: "V12",
+        engine: "V12 6.5 L",
+        power: "800 ch",
+        drive: "Propulsion",
+        description: "Une grande Ferrari GT équipée d'un V12 atmosphérique."
+    },
+
+    {
+        name: "Ferrari 12Cilindri",
+        type: "V12",
+        engine: "V12 6.5 L",
+        power: "830 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari moderne perpétuant la tradition du V12."
+    },
+
+    {
+        name: "Ferrari 499P",
+        type: "Course",
+        engine: "V6 hybride",
+        power: "Plus de 600 ch",
+        drive: "Transmission intégrale",
+        description: "Prototype Ferrari développé pour l'endurance."
+    },
+
+    {
+        name: "Ferrari 296 Challenge",
+        type: "Course",
+        engine: "V6 biturbo",
+        power: "Version compétition",
+        drive: "Propulsion",
+        description: "Une version destinée aux compétitions monomarques Ferrari."
+    },
+
+    {
+        name: "Ferrari SF90 XX Stradale",
+        type: "Hybride",
+        engine: "V8 biturbo + électrique",
+        power: "1030 ch",
+        drive: "Transmission intégrale",
+        description: "Une version extrême dérivée de la SF90."
+    },
+
+    {
+        name: "Ferrari FXX-K Evo",
+        type: "Course",
+        engine: "V12 hybride",
+        power: "Plus de 1000 ch",
+        drive: "Propulsion",
+        description: "Une Ferrari expérimentale destinée à la piste."
+    }
+
+];
+
+
+/* ================= VARIABLES ================= */
+
+let currentFilter = "Toutes";
+let currentCar = 0;
+let rotation = 0;
+let dragging = false;
+let startX = 0;
+let autoRotation = false;
+
+
+/* ================= AFFICHAGE ================= */
+
+function renderCars() {
+
+    const grid = document.getElementById("carGrid");
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    grid.innerHTML = "";
+
+    cars.forEach((car, index) => {
+
+        if (
+            currentFilter !== "Toutes" &&
+            car.type !== currentFilter
+        ) {
+            return;
+        }
+
+        if (
+            search &&
+            !car.name.toLowerCase().includes(search)
+        ) {
+            return;
+        }
+
+        grid.innerHTML += `
+
+            <div class="card">
+
+                <div class="car-image">
+
+                    <div class="car-shape"></div>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>${car.name}</h3>
+
+                    <p>
+                        ${car.type} · ${car.engine}
+                    </p>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="btn-red"
+                            onclick="openViewer(${index})"
+                        >
+                            360°
+                        </button>
+
+                        <button
+                            class="btn-dark"
+                            onclick="openViewer(${index}); showDetails()"
+                        >
+                            Détails
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    });
+}
+
+
+/* ================= FILTRE ================= */
+
+function filterCars(type, button) {
+
+    currentFilter = type;
+
+    document
+        .querySelectorAll(".filters button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    renderCars();
+}
+
+
+/* ================= 360 ================= */
+
+function openViewer(index) {
+
+    currentCar = index;
+
+    const car = cars[index];
+
+    document.getElementById("viewerTitle").textContent =
+        car.name;
+
+    document.getElementById("viewer")
+        .classList.add("show");
+
+    rotation = 0;
+
+    document.getElementById("car3D")
+        .style.transform =
+        "rotateY(0deg)";
+
+    document.getElementById("car3D")
+        .classList.remove("doors-open");
+
+    document.getElementById("interior")
+        .classList.remove("show");
+
+    document.getElementById("details")
+        .classList.remove("show");
+}
+
+
+function closeViewer() {
+
+    document.getElementById("viewer")
+        .classList.remove("show");
+
+    autoRotation = false;
+
+    document.getElementById("car3D")
+        .style.animation = "none";
+}
+
+
+/* ================= DRAG 360 ================= */
+
+const viewerArea =
+    document.getElementById("viewerArea");
+
+viewerArea.addEventListener("pointerdown", e => {
+
+    dragging = true;
+    startX = e.clientX;
+
+    viewerArea.setPointerCapture(e.pointerId);
+
+});
+
+
+viewerArea.addEventListener("pointermove", e => {
+
+    if (!dragging) return;
+
+    const difference =
+        e.clientX - startX;
+
+    rotation += difference * 0.7;
+
+    document.getElementById("car3D")
+        .style.transform =
+        `rotateY(${rotation}deg)`;
+
+    startX = e.clientX;
+
+});
+
+
+viewerArea.addEventListener("pointerup", () => {
+
+    dragging = false;
+
+});
+
+
+/* ================= ROTATION AUTO ================= */
+
+function toggleRotation() {
+
+    const car =
+        document.getElementById("car3D");
+
+    autoRotation = !autoRotation;
+
+    if (autoRotation) {
+
+        car.style.animation =
+            "rotateCar 5s linear infinite";
+
+    } else {
+
+        car.style.animation = "none";
+
+    }
+}
+
+
+/* ================= PORTES ================= */
+
+function toggleDoors() {
+
+    document.getElementById("car3D")
+        .classList.toggle("doors-open");
+
+}
+
+
+/* ================= INTERIEUR ================= */
+
+function toggleInterior() {
+
+    document.getElementById("interior")
+        .classList.toggle("show");
+
+}
+
+
+/* ================= DETAILS ================= */
+
+function showDetails() {
+
+    const car = cars[currentCar];
+
+    document.getElementById("detailsTitle")
+        .textContent = car.name;
+
+    document.getElementById("detailsDescription")
+        .textContent = car.description;
+
+    document.getElementById("specEngine")
+        .textContent = car.engine;
+
+    document.getElementById("specPower")
+        .textContent = car.power;
+
+    document.getElementById("specDrive")
+        .textContent = car.drive;
+
+    document.getElementById("specType")
+        .textContent = car.type;
+
+    document.getElementById("details")
+        .classList.add("show");
+
+}
+
+
+/* ================= HERO ================= */
+
+function goCollection() {
+
+    document
+        .getElementById("collection")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* ================= FERMER AVEC ECHAP ================= */
+
+document.addEventListener("keydown", e => {
+
+    if (e.key === "Escape") {
+        closeViewer();
+    }
+
+});
+
+
+/* ================= ANIMATION ================= */
+
+const style = document.createElement("style");
+
+style.innerHTML = `
+
+@keyframes rotateCar {
+
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+
+}
+
+`;
+
+document.head.appendChild(style);
+
+
+/* ================= START ================= */
+
+renderCars();
+
+</script>
+
+</body>
+</html>
