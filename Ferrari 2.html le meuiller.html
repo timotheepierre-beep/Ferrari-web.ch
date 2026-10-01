@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ferrari Collection</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#080808;
+    color:white;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    height:72px;
+    background:#0b0b0b;
+    border-bottom:1px solid #252525;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:#e10600;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:30px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#e10600;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:560px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.8)
+        ),
+        radial-gradient(
+            circle at center,
+            #3b0000,
+            #090909 65%
+        );
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.hero h1{
+    font-size:clamp(55px,9vw,110px);
+    letter-spacing:6px;
+}
+
+.hero h1 span{
+    color:#e10600;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:19px;
+    line-height:1.7;
+    max-width:700px;
+    margin:25px auto;
+}
+
+.hero button{
+    background:#e10600;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:5px;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.hero button:hover{
+    background:#ff1b13;
+    transform:translateY(-3px);
+}
+
+/* ================= COLLECTION ================= */
+
+.collection{
+    padding:90px 6%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title h2{
+    font-size:44px;
+}
+
+.section-title p{
+    color:#777;
+    margin-top:12px;
+}
+
+/* ================= SEARCH ================= */
+
+.search{
+    max-width:600px;
+    margin:0 auto 35px;
+}
+
+.search input{
+    width:100%;
+
+    padding:16px 20px;
+
+    background:#111;
+    border:1px solid #333;
+
+    border-radius:6px;
+
+    color:white;
+    font-size:16px;
+
+    outline:none;
+}
+
+.search input:focus{
+    border-color:#e10600;
+}
+
+/* ================= FILTERS ================= */
+
+.filters{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:45px;
+}
+
+.filters button{
+    background:#111;
+    border:1px solid #333;
+    color:#aaa;
+
+    padding:10px 18px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.filters button:hover,
+.filters button.active{
+    background:#e10600;
+    border-color:#e10600;
+    color:white;
+}
+
+/* ================= CARDS ================= */
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(290px,1fr));
+
+    gap:25px;
+}
+
+.card{
+    background:#101010;
+
+    border:1px solid #282828;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+
+    border-color:#e10600;
+
+    box-shadow:
+        0 20px 50px rgba(225,0,0,.12);
+}
+
+/* VRAIE PHOTO */
+
+.car-photo{
+    width:100%;
+    height:220px;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:#181818;
+
+    transition:.5s;
+}
+
+.card:hover .car-photo{
+    transform:scale(1.04);
+}
+
+.photo-container{
+    height:220px;
+    overflow:hidden;
+    background:#111;
+}
+
+.card-content{
+    padding:22px;
+}
+
+.card-content h3{
+    font-size:23px;
+    margin-bottom:9px;
+}
+
+.card-info{
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.card-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.card-buttons button{
+    flex:1;
+
+    padding:12px 8px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+.btn-red{
+    background:#e10600;
+    color:white;
+    border:none;
+}
+
+.btn-dark{
+    background:#181818;
+    color:white;
+    border:1px solid #333;
+}
+
+.btn-red:hover{
+    background:#ff1b13;
+}
+
+.btn-dark:hover{
+    border-color:#e10600;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.94);
+
+    z-index:2000;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(1000px,96vw);
+    max-height:92vh;
+
+    overflow:auto;
+
+    background:#101010;
+
+    border:1px solid #333;
+
+    border-radius:10px;
+
+    padding:30px;
+
+    position:relative;
+}
+
+.close{
+    position:absolute;
+
+    right:20px;
+    top:15px;
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    z-index:5;
+}
+
+.modal-box h2{
+    text-align:center;
+
+    font-size:38px;
+
+    margin-bottom:10px;
+}
+
+.modal-subtitle{
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:25px;
+}
+
+/* ================= GRANDE PHOTO ================= */
+
+.big-photo-container{
+    width:100%;
+    height:480px;
+
+    background:#080808;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.big-photo{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    transition:transform .5s;
+
+    user-select:none;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls{
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.controls button{
+    padding:12px 18px;
+
+    background:#181818;
+
+    border:1px solid #333;
+
+    color:white;
+
+    border-radius:5px;
+
+    cursor:pointer;
+}
+
+.controls button:hover{
+    background:#e10600;
+    border-color:#e10600;
+}
+
+/* ================= DETAILS ================= */
+
+.details{
+    display:none;
+
+    margin-top:25px;
+
+    padding:25px;
+
+    background:#080808;
+
+    border:1px solid #292929;
+
+    border-radius:8px;
+}
+
+.details.show{
+    display:block;
+}
+
+.details h3{
+    color:#e10600;
+    margin-bottom:12px;
+}
+
+.details p{
+    color:#aaa;
+    line-height:1.6;
+}
+
+.specs{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(160px,1fr));
+
+    gap:12px;
+
+    margin-top:20px;
+}
+
+.spec{
+    background:#151515;
+
+    padding:16px;
+
+    border-radius:5px;
+}
+
+.spec span{
+    display:block;
+
+    color:#666;
+
+    font-size:12px;
+
+    margin-bottom:6px;
+}
+
+.spec strong{
+    font-size:15px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:50px 20px;
+
+    text-align:center;
+
+    color:#555;
+
+    border-top:1px solid #222;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    nav{
+        padding:0 20px;
+    }
+
+    nav a{
+        display:none;
+    }
+
+    .hero{
+        min-height:470px;
+    }
+
+    .collection{
+        padding:65px 20px;
+    }
+
+    .big-photo-container{
+        height:300px;
+    }
+
+    .modal-box{
+        padding:20px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+    <div class="logo">
+        FERRARI<span>.</span>
+    </div>
+
+    <div>
+        <a href="#collection">Collection</a>
+        <a href="#histoire">Histoire</a>
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            FERRARI
+            <span>COLLECTION</span>
+        </h1>
+
+        <p>
+            Découvre les Ferrari les plus mythiques,
+            leurs caractéristiques, leur histoire
+            et leurs détails.
+        </p>
+
+        <button onclick="goCollection()">
+            EXPLORER LES FERRARI
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= COLLECTION ================= -->
+
+<section class="collection" id="collection">
+
+    <div class="section-title">
+
+        <h2>Collection Ferrari</h2>
+
+        <p>
+            De la légendaire 250 GTO aux Ferrari modernes.
+        </p>
+
+    </div>
+
+
+    <!-- RECHERCHE -->
+
+    <div class="search">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="🔎 Rechercher une Ferrari..."
+            oninput="renderCars()"
+        >
+
+    </div>
+
+
+    <!-- FILTRES -->
+
+    <div class="filters">
+
+        <button
+            class="active"
+            onclick="filterCars('Toutes',this)"
+        >
+            Toutes
+        </button>
+
+        <button
+            onclick="filterCars('V12',this)"
+        >
+            V12
+        </button>
+
+        <button
+            onclick="filterCars('V8',this)"
+        >
+            V8
+        </button>
+
+        <button
+            onclick="filterCars('Hybride',this)"
+        >
+            Hybride
+        </button>
+
+        <button
+            onclick="filterCars('Classique',this)"
+        >
+            Classiques
+        </button>
+
+    </div>
+
+
+    <div
+        class="grid"
+        id="carGrid"
+    ></div>
+
+</section>
+
+
+<!-- ================= HISTOIRE ================= -->
+
+<section
+    class="collection"
+    id="histoire"
+>
+
+    <div class="section-title">
+
+        <h2>Ferrari</h2>
+
+        <p>
+            Une collection consacrée uniquement aux automobiles
+            Ferrari, des modèles historiques aux voitures modernes.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MODAL ================= -->
+
+<div
+    class="modal"
+    id="modal"
+>
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
+
+
+        <h2 id="modalTitle">
+            Ferrari
+        </h2>
+
+        <div
+            class="modal-subtitle"
+            id="modalSubtitle"
+        ></div>
+
+
+        <!-- GRANDE VRAIE PHOTO -->
+
+        <div class="big-photo-container">
+
+            <img
+                id="bigPhoto"
+                class="big-photo"
+                src=""
+                alt="Ferrari"
+            >
+
+        </div>
+
+
+        <!-- BOUTONS -->
+
+        <div class="controls">
+
+            <button onclick="zoomIn()">
+                🔍 Zoom +
+            </button>
+
+            <button onclick="zoomOut()">
+                🔎 Zoom -
+            </button>
+
+            <button onclick="resetZoom()">
+                ↺ Réinitialiser
+            </button>
+
+            <button onclick="showDetails()">
+                📋 Détails
+            </button>
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div
+            class="details"
+            id="details"
+        >
+
+            <h3 id="detailsTitle">
+                Ferrari
+            </h3>
+
+            <p id="detailsDescription"></p>
+
+
+            <div class="specs">
+
+                <div class="spec">
+
+                    <span>Moteur</span>
+
+                    <strong id="specEngine"></strong>
+
+                </div>
+
+
+                <div class="spec">
+
+                    <span>Puissance</span>
+
+                    <strong id="specPower"></strong>
+
+                </div>
+
+
+                <div class="spec">
+
+                    <span>Transmission</span>
+
+                    <strong id="specDrive"></strong>
+
+                </div>
+
+
+                <div class="spec">
+
+                    <span>Type</span>
+
+                    <strong id="specType"></strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    Ferrari Collection
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   FERRARI
+   Les photos sont de vraies photos Wikimedia Commons.
+===================================================== */
+
+const cars = [
+
+    {
+        name:"Ferrari 250 GTO",
+        type:"Classique",
+        engine:"V12 3.0 L",
+        power:"Environ 300 ch",
+        drive:"Propulsion",
+        description:
+        "La Ferrari 250 GTO est l'une des Ferrari historiques les plus célèbres.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari%20250%20GTO.jpg"
+    },
+
+
+    {
+        name:"Ferrari F40",
+        type:"V8",
+        engine:"V8 biturbo 2.9 L",
+        power:"478 ch",
+        drive:"Propulsion",
+        description:
+        "Une supercar légendaire des années 1980, conçue pour être légère et radicale.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari%20F40.jpg"
+    },
+
+
+    {
+        name:"Ferrari F50",
+        type:"V12",
+        engine:"V12 4.7 L",
+        power:"520 ch",
+        drive:"Propulsion",
+        description:
+        "La F50 utilise un V12 atmosphérique inspiré de la compétition.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ferrari%20F50.jpg"
+    },
+
+
+    {
+        name:"Ferrari 458 Italia",
+        type:"V8",
+        engine:"V8 4.5 L",
+        power:"570 ch",
+        drive:"Propulsion",
+        description:
+        "Une berlinette V8 atmosphérique particulièrement emblématique.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2009%20Ferrari%20458%20Italia.jpg"
+    },
+
+
+    {
+        name:"Ferrari 488 GTB",
+        type:"V8",
+        engine:"V8 biturbo 3.9 L",
+        power:"670 ch",
+        drive:"Propulsion",
+        description:
+        "Une Ferrari V8 moderne équipée d'un moteur biturbo.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2015%20Ferrari%20488%20GTB.jpg"
+    },
+
+
+    {
+        name:"Ferrari SF90 Stradale",
+        type:"Hybride",
+        engine:"V8 biturbo + moteurs électriques",
+        power:"1000 ch",
+        drive:"Transmission intégrale",
+        description:
+        "Une Ferrari hybride rechargeable à très hautes performances.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2019%20Ferrari%20SF90%20Stradale.jpg"
+    },
+
+
+    {
+        name:"Ferrari 296 GTB",
+        type:"Hybride",
+        engine:"V6 biturbo 3.0 L + électrique",
+        power:"830 ch",
+        drive:"Propulsion",
+        description:
+        "Une sportive hybride Ferrari équipée d'un V6 biturbo.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2022%20Ferrari%20296%20GTB%20%2869705%29.jpg"
+    },
+
+
+    {
+        name:"Ferrari Daytona SP3",
+        type:"V12",
+        engine:"V12 6.5 L",
+        power:"840 ch",
+        drive:"Propulsion",
+        description:
+        "Un modèle spectaculaire de la série Ferrari Icona.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2023%20Ferrari%20Daytona%20SP3.jpg"
+    },
+
+
+    {
+        name:"Ferrari Roma",
+        type:"V8",
+        engine:"V8 biturbo 3.9 L",
+        power:"620 ch",
+        drive:"Propulsion",
+        description:
+        "Une Ferrari GT élégante inspirée du style italien classique.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2020%20Ferrari%20Roma.jpg"
+    },
+
+
+    {
+        name:"Ferrari Purosangue",
+        type:"V12",
+        engine:"V12 6.5 L",
+        power:"725 ch",
+        drive:"Transmission intégrale",
+        description:
+        "Le modèle quatre portes et quatre places de Ferrari.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2023%20Ferrari%20Purosangue.jpg"
+    },
+
+
+    {
+        name:"Ferrari 812 Superfast",
+        type:"V12",
+        engine:"V12 6.5 L",
+        power:"800 ch",
+        drive:"Propulsion",
+        description:
+        "Une grande GT Ferrari équipée d'un V12 atmosphérique.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2017%20Ferrari%20812%20Superfast.jpg"
+    },
+
+
+    {
+        name:"Ferrari 12Cilindri",
+        type:"V12",
+        engine:"V12 6.5 L",
+        power:"830 ch",
+        drive:"Propulsion",
+        description:
+        "Une Ferrari moderne qui continue la tradition du moteur V12.",
+        image:
+        "https://commons.wikimedia.org/wiki/Special:FilePath/2024%20Ferrari%2012%20Cilindri.jpg"
+    }
+
+];
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentFilter = "Toutes";
+
+let currentCar = 0;
+
+let zoom = 1;
+
+
+/* =====================================================
+   AFFICHER LES VOITURES
+===================================================== */
+
+function renderCars(){
+
+    const grid =
+        document.getElementById("carGrid");
+
+    const search =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    grid.innerHTML = "";
+
+
+    cars.forEach((car,index)=>{
+
+        if(
+            currentFilter !== "Toutes" &&
+            car.type !== currentFilter
+        ){
+            return;
+        }
+
+
+        if(
+            search &&
+            !car.name
+            .toLowerCase()
+            .includes(search)
+        ){
+            return;
+        }
+
+
+        grid.innerHTML += `
+
+            <article class="card">
+
+                <div class="photo-container">
+
+                    <img
+                        class="car-photo"
+                        src="${car.image}"
+                        alt="${car.name}"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        ${car.name}
+                    </h3>
+
+                    <div class="card-info">
+
+                        ${car.type}
+                        ·
+                        ${car.engine}
+
+                    </div>
+
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="btn-red"
+                            onclick="openCar(${index})"
+                        >
+                            👁 Voir
+                        </button>
+
+
+                        <button
+                            class="btn-dark"
+                            onclick="openCar(${index});showDetails()"
+                        >
+                            📋 Détails
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   FILTRES
+===================================================== */
+
+function filterCars(type,button){
+
+    currentFilter = type;
+
+
+    document
+        .querySelectorAll(".filters button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+
+    button.classList.add("active");
+
+
+    renderCars();
+
+}
+
+
+/* =====================================================
+   OUVRIR UNE FERRARI
+===================================================== */
+
+function openCar(index){
+
+    currentCar = index;
+
+    const car = cars[index];
+
+
+    document
+        .getElementById("modal")
+        .classList.add("show");
+
+
+    document
+        .getElementById("modalTitle")
+        .textContent = car.name;
+
+
+    document
+        .getElementById("modalSubtitle")
+        .textContent =
+        car.type + " · " + car.engine;
+
+
+    document
+        .getElementById("bigPhoto")
+        .src = car.image;
+
+
+    document
+        .getElementById("bigPhoto")
+        .alt = car.name;
+
+
+    resetZoom();
+
+
+    document
+        .getElementById("details")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   FERMER
+===================================================== */
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   ZOOM
+===================================================== */
+
+function zoomIn(){
+
+    zoom += .15;
+
+    if(zoom > 2){
+        zoom = 2;
+    }
+
+    updateZoom();
+
+}
+
+
+function zoomOut(){
+
+    zoom -= .15;
+
+    if(zoom < .7){
+        zoom = .7;
+    }
+
+    updateZoom();
+
+}
+
+
+function resetZoom(){
+
+    zoom = 1;
+
+    updateZoom();
+
+}
+
+
+function updateZoom(){
+
+    document
+        .getElementById("bigPhoto")
+        .style.transform =
+        `scale(${zoom})`;
+
+}
+
+
+/* =====================================================
+   DETAILS
+===================================================== */
+
+function showDetails(){
+
+    const car =
+        cars[currentCar];
+
+
+    document
+        .getElementById("details")
+        .classList.add("show");
+
+
+    document
+        .getElementById("detailsTitle")
+        .textContent = car.name;
+
+
+    document
+        .getElementById("detailsDescription")
+        .textContent =
+        car.description;
+
+
+    document
+        .getElementById("specEngine")
+        .textContent =
+        car.engine;
+
+
+    document
+        .getElementById("specPower")
+        .textContent =
+        car.power;
+
+
+    document
+        .getElementById("specDrive")
+        .textContent =
+        car.drive;
+
+
+    document
+        .getElementById("specType")
+        .textContent =
+        car.type;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+function goCollection(){
+
+    document
+        .getElementById("collection")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener("keydown",event=>{
+
+    if(event.key === "Escape"){
+        closeModal();
+    }
+
+});
+
+
+/* =====================================================
+   CLIC SUR LE FOND
+===================================================== */
+
+document
+    .getElementById("modal")
+    .addEventListener("click",event=>{
+
+        if(event.target.id === "modal"){
+            closeModal();
+        }
+
+    });
+
+
+/* =====================================================
+   DEMARRAGE
+===================================================== */
+
+renderCars();
+
+</script>
+
+</body>
+</html>
